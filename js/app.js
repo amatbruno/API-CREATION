@@ -1,9 +1,10 @@
+//Imports
 const express = require("express");
 const app = express();
 const port = 3000;
 const { Pool } = require("pg");
 
-//POSTGRE connection
+//POSTGRE Connection
 const pool = new Pool({
     host: "localhost",
     user: "superuser",
@@ -12,6 +13,7 @@ const pool = new Pool({
     port: 5432,
 });
 
+//Analize the body for JSON requests
 app.use(express.json());
 
 //Route to get all the admins
@@ -84,10 +86,8 @@ app.delete('/admin/del/:id', (req, res) => {
 });
 
 
-
-
-
-
+//Route to the documentation
+app.use("/api-docs", require("./js/api-docs"));
 
 
 //Listener for start project port
