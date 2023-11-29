@@ -1,3 +1,19 @@
+/**
+ * @swagger
+ * /admins:
+ *   get:
+ *     summary: Get all users
+ *     description: Used to request all existing users
+ *     responses:
+ *       200:
+ *         description: Users correctly fetched
+ *         content:
+ *           application/json:
+ *             example:
+ *               admins: []
+ */
+
+
 //Imports
 const express = require("express");
 const app = express();
@@ -85,9 +101,11 @@ app.delete('/admin/del/:id', (req, res) => {
     });
 });
 
-
 //Route to the documentation
-app.use("/api-docs", require("./js/api-docs"));
+const apiDocsModule = require("./api-docs")
+console.log(apiDocsModule);
+app.use("/docs", apiDocsModule);
+
 
 
 //Listener for start project port
