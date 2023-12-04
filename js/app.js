@@ -1,17 +1,4 @@
-/**
- * @swagger
- * /admins:
- *   get:
- *     summary: Get all users
- *     description: Used to request all existing users
- *     responses:
- *       200:
- *         description: Users correctly fetched
- *         content:
- *           application/json:
- *             example:
- *               admins: []
- */
+
 
 
 //Imports
@@ -19,6 +6,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const { Pool } = require("pg");
+
 
 //POSTGRE Connection
 const pool = new Pool({
@@ -29,9 +17,28 @@ const pool = new Pool({
     port: 5432,
 });
 
+
 //Analize the body for JSON requests
 app.use(express.json());
 
+
+//Swagger for all admins
+/**
+ * @swagger
+ * /admins:
+ *   get:
+ *     summary: Get all users
+ *     description: Used to request all existing users
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Admin all
+ *         content:
+ *           application/json:
+ *             example:
+ *               admins: []
+ */
 //Route to get all the admins
 app.get("/admins", (req, res) => {
     pool.query("SELECT * FROM admins", (err, results) => {
@@ -101,11 +108,10 @@ app.delete('/admin/del/:id', (req, res) => {
     });
 });
 
-//Route to the documentation
-const apiDocsModule = require("./api-docs")
-console.log(apiDocsModule);
-app.use("/docs", apiDocsModule);
 
+//Route to the documentation
+const swagger = require('./api-docs.js');
+app.use("/docs", swagger);
 
 
 //Listener for start project port
