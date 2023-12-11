@@ -14,7 +14,8 @@ const swaggerSpec = {
     openapi: "3.0.0",
     info: {
         version: "1.0.0",
-        title: "Docu API",
+        title: "3x3_Intern API",
+        description: "API for the 3x3 project, made by Bruno Amat"
     },
     servers: [
         {
